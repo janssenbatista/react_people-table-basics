@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Loader } from '../components/Loader';
 import { Person } from '../types';
 import { getPeople } from '../api';
-import PersonLink from '../components/PersonLink';
+import PeopleTable from '../components/PeopleTable';
 
 export default function People() {
   const { slug } = useParams();
@@ -49,33 +49,11 @@ export default function People() {
           )}
 
           {people.length && (
-            <table
-              data-cy="peopleTable"
-              className="table is-striped is-hoverable is-narrow is-fullwidth"
-            >
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Sex</th>
-                  <th>Born</th>
-                  <th>Died</th>
-                  <th>Mother</th>
-                  <th>Father</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {people.map(person => (
-                  <PersonLink
-                    key={person.name}
-                    people={people}
-                    person={person}
-                    isSelected={person.name === selectedPerson}
-                    onSelect={name => setSelectedPerson(name)}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <PeopleTable
+              people={people}
+              selectedPerson={selectedPerson}
+              onSelect={name => setSelectedPerson(name)}
+            />
           )}
         </div>
       </div>
